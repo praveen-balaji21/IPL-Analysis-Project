@@ -1,0 +1,405 @@
+import pandas as pd
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+df = pd.read_csv("matches.csv")
+
+df.head()
+
+df.tail()
+
+df.shape()
+
+df.info()
+
+df.describe()
+
+df.loc[]
+df.iloc[]
+
+df.sort_values()
+
+df.sum()
+df.mean()
+df.median()
+df.mode()
+df.min()
+df.max()
+df.std()
+df.var()
+df.count()
+
+
+pd.merge(df1,df2, on="Match_No", how="inner")
+
+df.set_index()
+df.reset_index()
+
+
+df.drop_duplicates()
+
+df.dropna()
+
+df_dropped = df.drop("Unnamed: 0",axis = 1)
+print(df_dropped)
+
+df.dtypes
+
+df.isnull().sum()
+
+df.columns()
+
+df.fillna()
+
+df["Opposition"].nunique()
+
+df.fillna(method="ffill",inplace=True)
+
+df.describe(include="all")
+
+df["Teams"].value_counts()
+
+df.groupby("Teams")["Toss_Winner"].count()
+
+df.rename(columns={"Toss Decision :"Toss_Winner"})
+
+df.to_csv("ipl_cricket2008.csv")
+
+df["Opposition"]=df["Opposition"].replace({"Mumbai":"MI"})
+
+
+df["Date"] = pd.to_datetime(df["Date"],format="%m/%d/%Y")
+df["Date"] = df["Date"].dt.strftime("%d/%m/%Y")
+
+
+
+df["Toss_Winner"] = df["Toss_Winner"].replace({"Rajasthan Royals":"RR",
+                                               "Deccan Chargers":"Deccan",
+                                               "Mumbai Indians":'MI',
+                                               "Kings XI Punjab":"Punjab",
+                                               "Kolkata Knight Riders":"KKR",
+                                               "Delhi Daredevils":"DC",
+                                               "Royal Challengers Bangalore":"RCB",
+                                               "Chennai Super Kings":"CSK"})
+
+
+df["Match_Winner"] = df["Match_Winner"].replace({"Rajasthan Royals":"RR",
+                                               "Deccan Chargers":"Deccan",
+                                               "Mumbai Indians":'MI',
+                                               "Kings XI Punjab":"Punjab",
+                                               "Kolkata Knight Riders":"KKR",
+                                               "Delhi Daredevils":"DC",
+                                               "Royal Challengers Bangalore":"RCB",
+                                               "Chennai Super Kings":"CSK"})
+
+
+
+
+
+
+============================================================================================================================================================================================
+
+Matplotlib:  
+
+
+import matplotlib.pyplot as plt
+
+plt.bar(df["Teams"],df["Match_Winner"])
+plt.title("Teams Winning")
+plt.xlabel("Teams")
+plt.ylabel("Match Winner") 
+
+
+
+
+toss = df["Toss_Decision"].value_counts()
+
+plt.pie(toss.values,
+        labels=toss.index,
+        autopct='%1.1f%%',
+       shadow=True)
+
+plt.title("Toss Decision Percentage")
+
+
+
+wins = df["Match_Winner"].value_counts()
+
+plt.figure(figsize=(10,5))
+plt.bar(wins.index, wins.values,color="#2596be",edgecolor="black")
+
+plt.title("Team Wise Wins")
+plt.xlabel("Teams")
+plt.ylabel("Wins")
+
+plt.show() 
+
+
+
+
+plt.figure(figsize=(5,8))
+
+match = df.groupby('Teams')["Match_Winner"].count()
+plt.pie(match.values,
+    labels=match.index,
+    autopct='%1.1f%%'
+)
+
+plt.title('Team match wins')
+
+plt.show()
+
+
+
+MOM = df["Player_of_Match"].value_counts().head(10)
+
+plt.figure(figsize=(16,8))
+plt.bar(MOM.index,MOM.values,color="#f2af5c",edgecolor="black")
+
+MOM = MOM.sort_values()
+
+
+plt.title("Most Man of the Match")
+plt.xlabel("Players")
+plt.ylabel("Counts")
+plt.show()
+
+
+
+
+plt.figure(figsize=(6,6))
+
+match = df.groupby("Teams")["Match_Winner"].count()
+
+plt.pie(match.values,
+        labels=match.index,
+        autopct="%1.1f%%",
+        explode=[0,0,0,0,0.1,0,0,0],
+        shadow = True
+       )
+
+plt.title("Match winning type")
+
+plt.show()
+
+
+
+
+
+match = df.groupby("Match_Winner")["Win_Type"].count()
+
+
+match = match.sort_values(ascending=False)
+plt.figure(figsize=(10,8),facecolor="#2f3338")
+
+ax = plt.axes()
+
+ax.set_facecolor("#d9dbde")
+
+plt.bar(match.index,match.values,label="Total wins",color="#cfa776",edgecolor="black")
+
+
+plt.title("Match Winners",color="white",fontweight="bold")
+plt.xlabel("Teams",color="white",fontweight="bold")
+plt.ylabel("wins",color="white",fontweight="bold")
+plt.xticks(color="white",fontweight="bold")
+plt.yticks(color="white",fontweight="bold")
+
+plt.legend()
+plt.show()
+
+
+
+
+match = df.groupby("Match_Winner")["Win_Type"].count()
+
+plt.figure(figsize=(10,8))
+match = match.sort_values(ascending=False)
+plt.scatter(match.index,match.values,color="red",s=100,marker="o",linestyle="",linewidth=3)
+
+
+plt.title("Count of Match Winners")
+
+plt.xlabel("Teams")
+
+plt.ylabel("Wins")
+plt.show()
+
+
+
+
+match = df.groupby("Match_Winner")["Win_Type"].count()
+
+plt.figure(figsize=(10,8))
+
+
+plt.plot(match.index,match.values,color="orange",marker="o", markersize=10,markerfacecolor="red",markeredgecolor="black",linestyle="--",linewidth=2,label="Wins")
+
+plt.title("Count of Match Winners")
+
+plt.xlabel("Teams")
+
+plt.ylabel("Wins")
+plt.legend()
+plt.show()
+
+
+
+
+match=df.groupby("Venue")["Match_Winner"].count()
+
+plt.figure(figsize=(10,10),facecolor="#4c6d9e")
+
+ax = plt.axes()
+ax.set_facecolor("#c1ccdb")
+
+match = match.sort_values(ascending=True)
+
+plt.barh(match.index,match.values,label="Total wins",color="#cfa776",edgecolor="black")
+
+
+plt.title("Matches won in the Venue",color="white",fontweight="bold")
+plt.xlabel("Match Winner",color="white",fontweight="bold")
+plt.ylabel("Venue",color="white",fontweight="bold")
+
+plt.xticks(color="white",fontweight="bold")
+plt.yticks(color="white",fontweight="bold")
+plt.show()
+
+
+===========================================================================================================================================================================================
+
+Seaborn:
+
+import seaborn as sns
+
+match = df.groupby("Teams")["Match_Winner"].count()
+
+sns.lineplot(x=match.index,y=match.values)
+
+plt.show()
+
+
+
+sns.violinplot(
+    x="Win_Type",
+    y="Win_Margin",
+    data=df
+)
+
+plt.show()
+
+
+
+
+venue_score = df.groupby("Venue")["First_Innings_Score"].mean()
+
+sns.histplot(venue_score, kde=True)
+
+plt.show()
+
+
+
+
+plt.figure(figsize=(12,6),facecolor="#0A96A5")
+
+
+ax = plt.axes()
+ax.set_facecolor("#BFECF1")
+sns.boxplot(
+    x="Teams",
+    y="First_Innings_Score",
+    data=df
+)
+   
+plt.xlabel("Teams",color="white",fontweight="bold"),
+plt.ylabel("First_Innings_Score", color="white",fontweight="bold"),
+
+
+plt.xticks(color="white",fontweight="bold")
+plt.yticks(color="white",fontweight="bold")
+
+plt.show()
+            
+
+
+
+plt.figure(figsize=(12,6),facecolor="#0A96A5")
+
+
+ax = plt.axes()
+ax.set_facecolor("#BFECF1")
+sns.boxplot(
+    x="Teams",
+    y="Second_Innings_Score",
+    data=df
+)
+   
+plt.xlabel("Teams",color="white",fontweight="bold"),
+plt.ylabel("First_Innings_Score", color="white",fontweight="bold"),
+
+
+plt.xticks(color="white",fontweight="bold")
+plt.yticks(color="white",fontweight="bold")
+
+plt.show()
+
+
+
+
+plt.figure(figsize=(12,6),facecolor="#0A96A5")
+
+
+ax = plt.axes()
+ax.set_facecolor("#BFECF1")
+sns.boxplot(
+    x="Teams",
+    y="Powerplay_Scores",
+    data=df
+)
+   
+plt.xlabel("Teams",color="white",fontweight="bold"),
+plt.ylabel("Powerplay_Scores", color="white",fontweight="bold"),
+plt.title("Powerplay Scores",color="white",fontweight="bold")
+
+plt.xticks(color="white",fontweight="bold")
+plt.yticks(color="white",fontweight="bold")
+
+plt.show()
+          
+
+
+sns.heatmap(df[["Powerplay_Scores","Middle_Overs_Scores","Death_Overs_Scores"]].corr(), annot=True,cmap="coolwarm")
+
+plt.show()
+
+
+sns.stripplot(x= "Teams",y="Powerplay_Scores",data=df,jitter=True)
+
+sns.swarmplot(x="Teams",y="Powerplay_Scores",data=df)
+
+
+sns.violinplot(x="Teams",y="Powerplay_Scores",data=df,facecolor="#c7f1f2")
+plt.show()
+
+
+
+============================================================================================================================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
