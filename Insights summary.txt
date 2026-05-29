@@ -1,0 +1,18 @@
+
+IPL Data Analysis - Insights Summary
+Key Insights :
+
+
+
+Rajasthan emerged as the most successful team in the dataset with the highest number of match wins.
+Punjab and Chennai consistently delivered strong performances across multiple matches.
+Teams winning the toss also won the match in approximately 52% of games, indicating a slight toss advantage.
+The average first innings score was around 161 runs, showing that competitive totals were generally high-scoring.
+The average second innings score was around 148 runs, suggesting that chasing teams faced moderate pressure.
+The highest first innings score recorded in the dataset was 240 runs by Punjab against Chennai.
+Powerplay overs played a major role in setting momentum, with aggressive starts often leading to stronger total scores.
+Middle overs contributed significantly to match stability and innings building.
+Death overs had a major impact on final scores due to accelerated scoring rates in the last overs.
+Venues such as M Chinnaswamy Stadium, Eden Gardens, and Punjab Cricket Association Stadium hosted the highest number of matches in the dataset.
+Teams batting first showed strong winning patterns when posting high totals above 180 runs.
+Player of the Match awards were frequently earned by top-order batsmen and all-rounders for match-winning performances.
